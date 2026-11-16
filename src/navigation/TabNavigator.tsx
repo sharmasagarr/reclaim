@@ -60,16 +60,12 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
               onPress={onPress}
               activeOpacity={0.7}
               style={styles.tabButton}>
-              <View style={styles.iconShell}>
-                <View
-                  style={[
-                    styles.iconBackground,
-                    isFocused && styles.activeIconBackground,
-                  ]}
-                />
-                <View style={styles.iconForeground}>
-                  <TabBarIcon name={route.name} focused={isFocused} />
-                </View>
+              <View
+                style={[
+                  styles.pillContainer,
+                  isFocused && styles.activePillContainer,
+                ]}>
+                <TabBarIcon name={route.name} focused={isFocused} />
               </View>
               <AppText
                 style={[
@@ -128,29 +124,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 4,
   },
-  iconShell: {
-    position: 'relative',
+  pillContainer: {
+    width: 64,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 2,
-  },
-  iconBackground: {
-    ...StyleSheet.absoluteFill,
-    borderRadius: 100,
     backgroundColor: 'transparent',
-    overflow: 'hidden',
+    marginBottom: 4,
   },
-  activeIconBackground: {
+  activePillContainer: {
     backgroundColor: 'rgba(34, 197, 94, 0.22)',
-    borderRadius: 100,
-  },
-  iconForeground: {
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
   },
   tabLabel: {
     fontSize: 11,

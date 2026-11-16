@@ -6,4 +6,10 @@
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
 
+    <!-- BootSplash Theme -->
+    <style name="BootTheme" parent="Theme.BootSplash">
+        <item name="bootSplashBackground">#08080A</item>
+        <item name="postBootSplashTheme">@style/AppTheme</item>
+    </style>
+
 </resources>

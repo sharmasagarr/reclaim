@@ -1,43 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useEffect } from 'react';
+import { StatusBar, StyleSheet, LogBox } from 'react-native';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+LogBox.ignoreLogs([
+  '[Reanimated] Dependencies should only be used on the web and are always ignored on native.',
+]);
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import BootSplash from 'react-native-bootsplash';
+import { AppProvider, useAppStore } from './src/store/appStore';
+import { RootNavigator } from './src/navigation/RootNavigator';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+function AppContent() {
+  const { isDark } = useAppStore();
+
+  useEffect(() => {
+    BootSplash.hide({ fade: true }).catch(() => {
+      // Ignored if bootsplash is not active
+    });
+  }, []);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <>
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </>
   );
 }
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
+function App() {
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <AppProvider>
+          <BottomSheetModalProvider>
+            <AppContent />
+          </BottomSheetModalProvider>
+        </AppProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
   },
 });

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">reclaim</string>
+    <string name="app_name">Reclaim</string>
+    <string name="accessibility_service_description">Reclaim observes YouTube screen states to block distracting YouTube Shorts while preserving normal videos, search, and subscriptions.</string>
 </resources>
